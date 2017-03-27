@@ -41,15 +41,12 @@ print("symbol:", symbol)
 
 if filename is None:
     filename = "/home/john/sample/snp500.h5"
-if use_h5py:
-    print("Using h5py")
-else:
-    print("using h5pyd")
-
-print("filename,", filename)
+ 
 if use_h5py:    
+    print("opening:",filename, "with h5py")
     f = h5py.File(filename, 'r')
 else:
+    print("opening:",filename, "with h5pyd")
     f = h5pyd.File(filename, 'r')
  
 
