@@ -24,6 +24,7 @@ while argn < len(sys.argv):
 
 if USE_H5PY:
     import h5py
+    print("using h5py")
     folder = "/home/john/HDF/data/NEX/"
 else:
     import h5pyd as h5py

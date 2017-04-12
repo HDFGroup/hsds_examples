@@ -12,6 +12,7 @@ while argn < len(sys.argv):
         sys.exit(-1)
     if arg == "use_h5py":
         USE_H5PY = True
+        print("using h5py")
         argn += 1
     else:
         slice_number = int(arg)
