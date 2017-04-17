@@ -2,7 +2,6 @@
 
 # Example script that simulates common data access patterns for a basic 
 # science user doing post processing, viewing and or analyzing data.
-# The hdf5 lib should be complied in threadsafe mode for this. 
 #
 # Script used for h5py, h5pyd and hsds to contrast timings.
 # 
