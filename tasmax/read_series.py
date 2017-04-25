@@ -30,7 +30,9 @@ else:
     import h5pyd as h5py
     folder = "/home/john/NEX/"
     
-filename = folder + "tasmax_amon_BCSD_historical_r1i1p1_CONUS_CSIRO-Mk3-6-0_199001-199412.nc"
+filename = folder +  "tasmax_amon_BCSD_historical_r1i1p1_CONUS_CSIRO-Mk3-6-0_199001-199412.nc"
+filename = "/home/john/load_test/tasmax.nc"
+
 f = h5py.File(filename, 'r')
 
 dset = f["/tasmax"]
