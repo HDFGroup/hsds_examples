@@ -44,7 +44,8 @@ logging.debug("set log_level to {}".format(loglevel))
 
 # This is a larger dataset
 #filename = folder + "tasmax_amon_BCSD_historical_r1i1p1_CONUS_CSIRO-Mk3-6-0_199001-199412.nc"
-filename = folder + "tasmax_day_BCSD_rcp45_r1i1p1_CanESM2_2050.nc"
+#filename = folder + "tasmax_day_BCSD_rcp45_r1i1p1_CanESM2_2050.nc"
+filename = folder + "tasmax_day_BCSD_historical_r1i1p1_ACCESS1-0_1950.nc"
 f = h5py.File(filename, 'r')
 dset = f["/tasmax"]
 print("tasmax shape: {}".format(dset.shape))
