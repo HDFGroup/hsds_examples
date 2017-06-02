@@ -3,7 +3,10 @@ cube data generator
 
 Provide an integer argument to the script to generate a HDF5 containing a nxnxn dataset initialized with random data.
 
-Example: ::
+Example: 
+
+::
+
 	$ h5ls -r -v cube_256_256_256.h5
 	Opened "cube_256_256_256.h5" with sec2 driver.
 	/                        Group
