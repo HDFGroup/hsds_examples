@@ -1,0 +1,43 @@
+load_perf test
+
+Source file: tasmax_quartile75_amon_rcp26_CONUS_209601-209912.nc
+3888 chunks
+1233936 bytes/chunk
+Size: 1.1G
+
+->/home/john/load_test/tasmax1.nc
+hsload time:  4m53s
+Node: default case
+      Minio had very high CPU: 18-%
+
+
+Disable write chunk in hsload.py
+->/home/john/load_test/tasmax2.nc
+hsload time: 14.7s
+0.077s/chunk
+
+Change s3_sync_interval in hsds to 10000 (from 10)
+->/home/john/load_test/tasmax3.nc
+hsload time: 4m46s
+Note: memory usage incrased to ~1.2GB per DN node
+      Minio still had fairly high CPU: 80% (not sure what was driving that)
+      Not much utilization in SN/DN nodes
+
+Replace chunk_sn write chunk with asyncio.sleep(0)
+->/home/john/load_test/tasmax4.nc
+hsload time: 39.4s
+26 MB/s
+Note: DN_4 had cpu of ~10% - repeated requests to get domain
+
+Fix for getDomainJson: change default to False
+->/home/john/load_test/tasmax5.nc
+hsload time: 32.9s
+Note: Low util by all DN nodes
+
+Restore chunk write
+->/home/john/load_test/tasmax5.nc
+hsload time: 5m3.4s
+3.2 MB/s
+
+
+
