@@ -1,0 +1,18 @@
+$ hsls -r -H -v /home/harvardseas/
+harvardseas                     folder   2017-08-08 18:05:00 /home/harvardseas/
+harvardseas                     folder   2017-08-08 20:48:11 /home/harvardseas/GEOSFP/
+harvardseas        17.0G        domain   2017-08-08 20:49:24 /home/harvardseas/GEOSFP/GEOSFP.20150701.A3cld.Native.nc
+harvardseas                     folder   2017-08-08 18:36:17 /home/harvardseas/MERRA2/
+harvardseas                     folder   2017-08-08 18:36:43 /home/harvardseas/MERRA2/05x0625_NA/
+harvardseas        37.6M        domain   2017-08-08 18:37:52 /home/harvardseas/MERRA2/05x0625_NA/MERRA2.20150101.A1.05x0625.NA.nc4
+harvardseas       116.1M        domain   2017-08-08 18:49:38 /home/harvardseas/MERRA2/05x0625_NA/MERRA2.20150101.A3cld.05x0625.NA.nc4
+harvardseas        59.1M        domain   2017-08-08 18:58:53 /home/harvardseas/MERRA2/05x0625_NA/MERRA2.20150101.A3mstC.05x0625.NA.nc4
+harvardseas       211.3M        domain   2017-08-08 19:00:47 /home/harvardseas/MERRA2/05x0625_NA/MERRA2.20150101.A3mstE.05x0625.NA.nc4
+harvardseas        71.9M        domain   2017-08-08 19:05:46 /home/harvardseas/MERRA2/05x0625_NA/MERRA2.20150101.I3.05x0625.NA.nc4
+harvardseas                     folder   2017-08-08 19:08:56 /home/harvardseas/MERRA2/4x5/
+harvardseas         8.0M        domain   2017-08-08 20:39:23 /home/harvardseas/MERRA2/4x5/MERRA2.20160101.A1.4x5.nc4
+harvardseas        20.0M        domain   2017-08-08 20:41:21 /home/harvardseas/MERRA2/4x5/MERRA2.20160101.A3cld.4x5.nc
+harvardseas        20.0M        domain   2017-08-08 20:42:23 /home/harvardseas/MERRA2/4x5/MERRA2.20160101.A3dyn.4x5.nc4
+harvardseas        23.7M        domain   2017-08-08 20:43:07 /home/harvardseas/MERRA2/4x5/MERRA2.20160101.A3mstC.4x5.nc4
+harvardseas        24.3M        domain   2017-08-08 20:44:20 /home/harvardseas/MERRA2/4x5/MERRA2.20160101.A3mstE.4x5.nc4
+harvardseas        14.6M        domain   2017-08-08 20:45:14 /home/harvardseas/MERRA2/4x5/MERRA2.20160101.I3.4x5.nc4
