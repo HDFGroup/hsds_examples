@@ -21,7 +21,8 @@ def test_region(dset):
     print("test_region done")
 
 def test_series(dset):
-    num_slices = 50
+    print("test_series")
+    num_slices = 25
     for i in range(num_slices):
         y = randint(0, dset.shape[1]-1)
         x = randint(0, dset.shape[2]-1)  
