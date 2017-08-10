@@ -31,12 +31,18 @@ def test_series(dset):
             sys.exit("unexpected shape returned")
     print("test_series done")
 
-          
 
 #
-# main
+# main:
 #
-filename = "/Volumes/data/NEX/tasmax_ens-avg_amon_historical_CONUS_195001-195412.nc"
+
+
+#change the filename to whever this file is on your machine
+filename = "/mnt/data/NEX/tasmax_ens-avg_amon_historical_CONUS_195001-195412.nc"
+
+# path for HSDS install an AMCE
+#filename = "/nex/tasmax_ens-avg_amon_historical_CONUS.nc"                              
+
 f = h5py.File(filename, 'r')
 tasmax = f['tasmax']
 test_region(tasmax)
