@@ -40,4 +40,14 @@ hsload time: 5m3.4s
 3.2 MB/s
 
 
+Tasmax Compression Source File
+------------------------------
+f['tasmax']  (60, 3105, 7025)
+
+Chunks:    {1, 369, 836} 1233936 bytes
+    Storage:   5235030000 logical bytes, 1343722651 allocated bytes, 389.59% utilization
+    Filter-0:  shuffle-2 OPT {4}
+    Filter-1:  deflate-1 OPT {5}
+    Type:      native float
+
 
