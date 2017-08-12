@@ -40,3 +40,17 @@ Test h5pyd with m2.2xlarge & 4 nodes - No compression
     user	0m1.123s
     sys	0m0.803s
 
+Test h5pyd with m2.2xlarge & 4 nodes - With compression
+-----------------------------------------------------
+
+::
+
+    test_region slice [n,:369,:836]
+    test_region done
+    test_series
+    test_series done
+
+    real	0m15.027s
+    user	0m1.150s
+    sys	0m0.821s
+
