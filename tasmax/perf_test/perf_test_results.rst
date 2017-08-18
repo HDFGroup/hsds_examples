@@ -90,7 +90,7 @@ Cold:
 
 Hot:
 
-     time python perf_test2.py
+    time python perf_test2.py
     test_region slice [n,:369,:836]
     test_region done
     test_series
