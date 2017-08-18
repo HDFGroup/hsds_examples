@@ -31,6 +31,7 @@ Test h5py with i7 + HDD
 -----------------------
 
 ::
+
     $ time python perf_test.py
     test_region slice [n,:369,:836]
     test_region done
@@ -89,6 +90,8 @@ Cold:
     sys	0m0.788s
 
 Hot:
+
+::
 
     time python perf_test2.py
     test_region slice [n,:369,:836]
