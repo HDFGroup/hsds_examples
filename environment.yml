@@ -1,4 +1,4 @@
-name: h5pyd
+name: hsds
 channels:
   - conda-forge
   - defaults
