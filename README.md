@@ -1,19 +1,15 @@
-HSDS (Highly Scalable Data Service) Example Programs
-====================================================
+# HSDS (Highly Scalable Data Service) Example Programs
 
-Introduction
-************
-
+## Introduction
+ 
 HSDS is a web service that implements a REST-based web service for HDF5 data stores.
 
 This repository contains sample programs (mostly in Python) that demonstrate
 utilizing this service.
 
-Setup
-*****
-
-Get Code
---------
+## Setup
+ 
+### Get Code
 
 Clone this repository::
 
@@ -21,8 +17,7 @@ Clone this repository::
 
 If you don't have git installed, you can get it here: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-Install Python if you don't have it already
--------------------------------------------
+### Install Python if you don't have it already
 
 Python version 2.7 to 3.6 is fine. Check your version using::
 
@@ -30,8 +25,7 @@ Python version 2.7 to 3.6 is fine. Check your version using::
 
 If you don't have Python installed, go to: https://www.python.org/downloads/.
 
-Install Pip if you don't have it already
-----------------------------------------
+### Install Pip if you don't have it already
 
 Run::
 
@@ -47,8 +41,7 @@ Then run the script::
 
 If you run into problems, see: https://pip.pypa.io/en/stable/installing/.
 
-Install the necessary packages
-------------------------------
+### Install the necessary packages
 
 Run::
 
@@ -63,9 +56,8 @@ Or if you are using Anaconda::
    $ source activate hsds
    $ pip install h5pyd
 
-Configure h5pyd
----------------
-
+### Configure h5pyd
+ 
 User credentials are stored in a .hscfg file in your home directory.
 Contact The HDF Group to get your credentials (username and password).
 
@@ -87,8 +79,7 @@ You can verify this with::
   $ hsls /home/<username>/  # list your home folder
   $ hstouch /home/<username>/empty.h5  # create a HDF5 domain (file)
 
-Using the HSDS CLI (Command Line Interface) Tools
-*************************************************
+## Using the HSDS CLI (Command Line Interface) Tools
 
 Once the above setup is complete, you can use the CLI tools to interact with the service.  To get help on a particular tool, run with the --help option.
 
@@ -103,8 +94,7 @@ The following tools are provided:
 * hsdel -- delete a file or folder
 * hsacl -- display or modify Access Control Lists (ACLs) for a file or folder
 
-Using the Python SDK (h5pyd)
-****************************
+## Using the Python SDK (h5pyd)
 
 The Python SDK allows you to write Python programs using a package that shares the 
 high-level API of the popular h5py package for regular HDF5 files.  See http://docs.h5py.org/en/latest/ for documentation of the API.
@@ -117,8 +107,7 @@ Notable differences:
 * Dimension Scales or not yet supported
 * h5pyd extends the Dataset class with a query method - see the ghcn_query example for usage
 
-Running the notebook examples
-*****************************
+## Running the notebook examples
 
 Samples that have a notebook sub-directory contain one or more Jupyter notebooks.
 To run, cd to that directory and type::
@@ -127,17 +116,14 @@ To run, cd to that directory and type::
 
 This will open a browser window that will let you step through the notebook.
 
-
-Websites
-********
+## Websites
 
 * Main website: http://www.hdfgroup.org
 * h5pyd Source code: https://github.com/HDFGroup/h5pyd
 * Mailing list: hdf-forum@lists.hdfgroup.org <hdf-forum@lists.hdfgroup.org>
 * Documentation: http://h5serv.readthedocs.org  (For REST API)
 
-Other useful resources
-**********************
+## Other useful resources
 
 * RESTful HDF5 White Paper: https://www.hdfgroup.org/pubs/papers/RESTful_HDF5.pdf  
 * SciPy17 Presentation: http://s3.amazonaws.com/hdfgroup/docs/hdf_data_services_scipy2017.pdf 
@@ -145,8 +131,7 @@ Other useful resources
 * HSDS Security: https://hdfgroup.org/wp/2015/12/serve-protect-web-security-hdf5 
 
 
-Reporting bugs (and general feedback)
-*************************************
+## Reporting bugs (and general feedback)
 
 For h5pyd-related problems, create new issues at http://github.com/HDFGroup/h5pyd/issues. 
 
