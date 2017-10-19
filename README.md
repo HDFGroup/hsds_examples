@@ -9,9 +9,9 @@ utilizing this service.
 
 ## Setup
  
-### Get Code
+### Get the samples (this repository)
 
-Clone this repository::
+Clone this repository:
 
     $ git clone https://github.com/HDFGroup/hdfcloud_workshop
 
@@ -19,7 +19,7 @@ If you don't have git installed, you can get it here: https://git-scm.com/book/e
 
 ### Install Python if you don't have it already
 
-Python version 2.7 to 3.6 is fine. Check your version using::
+Python version 2.7 to 3.6 is fine. Check your version using:
 
     $ python --version
 
@@ -27,57 +27,57 @@ If you don't have Python installed, go to: https://www.python.org/downloads/.
 
 ### Install Pip if you don't have it already
 
-Run::
+Run:
 
-   $ pip --version
+    $ pip --version
 
-If you don't have pip, get the installer srcript::
+If you don't have pip, get the installer srcript:
 
-  $ wget https://bootstrap.pypa.io/get-pip.py
+    $ wget https://bootstrap.pypa.io/get-pip.py
 
-Then run the script::
+Then run the script:
 
-   $ python get-pip.py 
+    $ python get-pip.py 
 
 If you run into problems, see: https://pip.pypa.io/en/stable/installing/.
 
 ### Install the necessary packages
 
-Run::
+Run:
 
-   $ pip install h5pyd
-   $ pip install h5py
-   $ pip install jason
-   $ pip install jupyter
+    $ pip install h5pyd
+    $ pip install h5py
+    $ pip install jason
+    $ pip install jupyter
 
-Or if you are using Anaconda::
+Or if you are using Anaconda:
 
-   $ conda create -n hsds python=3.6 h5py json jupyter
-   $ source activate hsds
-   $ pip install h5pyd
+    $ conda create -n hsds python=3.6 h5py json jupyter
+    $ source activate hsds
+    $ pip install h5pyd
 
 ### Configure h5pyd
  
 User credentials are stored in a .hscfg file in your home directory.
 Contact The HDF Group to get your credentials (username and password).
 
-Then run::
+Then run:
 
-  $ hsconfigure
+    $ hsconfigure
 
 As prompted, enter the service endpoint, username, and password.
 
-Verify that you can connect to the service::
+Verify that you can connect to the service:
 
-  $ hsinfo
+    $ hsinfo
 
 A folder in the path: "/home/<username>" should be setup with permissions for 
 your account to create sub-folders and files within the folder.  
 
-You can verify this with::
+You can verify this with:
 
-  $ hsls /home/<username>/  # list your home folder
-  $ hstouch /home/<username>/empty.h5  # create a HDF5 domain (file)
+    $ hsls /home/<username>/  # list your home folder
+    $ hstouch /home/<username>/empty.h5  # create a HDF5 domain (file)
 
 ## Using the HSDS CLI (Command Line Interface) Tools
 
@@ -110,9 +110,9 @@ Notable differences:
 ## Running the notebook examples
 
 Samples that have a notebook sub-directory contain one or more Jupyter notebooks.
-To run, cd to that directory and type::
+To run, cd to that directory and type:
 
-  $ jupyter notebook
+    $ jupyter notebook
 
 This will open a browser window that will let you step through the notebook.
 
