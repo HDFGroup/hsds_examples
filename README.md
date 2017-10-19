@@ -116,14 +116,16 @@ To run, cd to that directory and type:
 
 This will open a browser window that will let you step through the notebook.
 
-## Websites
+## Additional Information
+
+### Websites
 
 * Main website: http://www.hdfgroup.org
 * h5pyd Source code: https://github.com/HDFGroup/h5pyd
 * Mailing list: hdf-forum@lists.hdfgroup.org <hdf-forum@lists.hdfgroup.org>
 * Documentation: http://h5serv.readthedocs.org  (For REST API)
 
-## Other useful resources
+### Other useful resources
 
 * RESTful HDF5 White Paper: https://www.hdfgroup.org/pubs/papers/RESTful_HDF5.pdf  
 * SciPy17 Presentation: http://s3.amazonaws.com/hdfgroup/docs/hdf_data_services_scipy2017.pdf 
@@ -133,9 +135,13 @@ This will open a browser window that will let you step through the notebook.
 
 ## Reporting bugs (and general feedback)
 
+For problems with samples in this repository, create a new issue here: https://github.com/HDFGroup/hsds_examples/issues. 
+
 For h5pyd-related problems, create new issues at http://github.com/HDFGroup/h5pyd/issues. 
 
 For problems with the service itself, or general questions/feedback, please use the hdf list (hdf-forum@lists.hdfgroup.org) or contact the HDF help desk: help@hdfgroup.org
+
+There is a Slack-based discussion forum for HSDS at hdfobjectstore.slack.com.  Contact the help desk for an invite.
 
 
 
