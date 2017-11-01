@@ -13,7 +13,7 @@ utilizing this service.
 
 Clone this repository:
 
-    $ git clone https://github.com/HDFGroup/hdfcloud_workshop
+    $ git clone https://github.com/HDFGroup/hsds_examples
 
 If you don't have git installed, you can get it here: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
