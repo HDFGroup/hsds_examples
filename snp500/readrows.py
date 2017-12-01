@@ -44,7 +44,7 @@ if count is None:
     count = 100
 
 if filename is None:
-    filename = "/home/john/sample/snp500.h5"
+    filename = "/home/hdf/snp500.h5"
  
 if use_h5py:    
     print("opening:",filename, "with h5py")
