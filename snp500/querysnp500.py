@@ -34,13 +34,13 @@ while argn < len(sys.argv):
         print("unexpected argument")
         sys.exit(-1)
     argn += 1
-
+print("useh5py: {}".format(use_h5py))
 if symbol is None:
     symbol = 'AAPL'
 print("symbol:", symbol)
 
 if filename is None:
-    filename = "/home/john/sample/snp500.h5"
+    filename = "/home/hdf/snp500.h5"
  
 if use_h5py:    
     print("opening:",filename, "with h5py")
@@ -78,7 +78,6 @@ if use_h5py:
         start += PAGE_SIZE  # go on to next page
     result = np.asarray(rows, dtype=dset.dtype)
 else:
-
     query = "symbol == b'" + symbol + "'"
     print("query:", query)
     result = dset.read_where(query)
