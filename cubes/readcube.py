@@ -11,7 +11,7 @@ else:
 #
 # Main
 #
-# Crete a three-dimensional dataset of random floats.
+# Get min/max/mean values for each slice from given cube
 #
 # Argument can be used to set the size of the cube
 #
@@ -23,7 +23,7 @@ cube_side = 64
 
 if len(sys.argv) > 1:
     if sys.argv[1] in ("-h", "--help"):
-        print("Usage: python writecube.py [cube_side]")
+        print("Usage: python readcube.py [cube_side]")
         sys.exit(-1)
     else:
         cube_side = int(sys.argv[1])
@@ -32,16 +32,11 @@ filename = "/home/" + cfg["hs_username"] + "/"
 filename += "cube_" + str(cube_side) + ".h5"
 
 print("creating domain:", filename)
-f = h5pyd.File(filename, "a") 
+f = h5pyd.File(filename, "r") 
 
 print("filename,", f.filename)
-
-print("create dataset")
-
-if "dset" not in f:
-    dset = f.create_dataset('dset', (cube_side, cube_side, cube_side), dtype='f8')
-else:
-    dset = f["dset"]
+ 
+dset = f["dset"]
 
 print("name:", dset.name)
 print("shape:", dset.shape)
@@ -52,18 +47,16 @@ print("chunk size: {:.2f}m".format(chunk_size/(1024.0*1024.0)))
 chunks_per_slice = (dset.shape[1] // dset.chunks[1])*(dset.shape[2] // dset.chunks[2])
 print("chunks per slice: {}".format(chunks_per_slice))
 
-print("writing data...")
+print("reading data...")
 
 for i in range(cube_side):
-    print("writing slice: {}".format(i))
-    arr = np.random.rand(cube_side, cube_side)
+    print("reading slice: {}".format(i))
     t1 = time.time()
-    dset[i,:,:] = arr
+    arr = dset[i,:,:]
     t2 = time.time()
-    print("   done ({:.2f}s)".format(t2 - t1))
+    print("    min: {:.6f}  max: {:.6f} mean: {:.6f} ({:.2f}s)".format(arr.min(), arr.max(), arr.mean(), t2 - t1))
     
 
 print("done!")
-print("Use: $hsls {} to view domain".format(filename))
-
+ 
 f.close()
