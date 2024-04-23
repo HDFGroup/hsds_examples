@@ -1,0 +1,9 @@
+ipywidgets==7.7.1
+matplotlib==3.7.0
+numpy==1.24.2
+pandas==1.5.3
+tqdm==4.64.0
+h5py==3.11.0
+h5pyd==0.18.0
+s3fs==2024.3.1
+
