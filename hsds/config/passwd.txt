@@ -1,0 +1,3 @@
+# username/passwords for HSDS...
+hsuser:hsuser
+admin:admin

@@ -1,3 +1,8 @@
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/hdfgroup/hsds_examples)
+
+
+
 # HSDS (Highly Scalable Data Service) Example Programs
 
 ## Introduction
@@ -7,78 +12,24 @@ HSDS is a web service that implements a REST-based web service for HDF5 data sto
 This repository contains sample programs (mostly in Python) that demonstrate
 utilizing this service.
 
-## Setup
+All of the sample programs can be run in a Web browser without installing any software. 
+To this end, this repository comes with a prebuild __[GitHub Codespaces](https://github.com/features/codespaces)__ configuration. Launch a Codespaces environment by clicking the banner __["Open in GitHub Codespaces"](https://codespaces.new/SEEKCommons/WorkshopTraining)__ and start evaluating the Jupyter notebooks (by placing the cursor into a code cell and pressing `Ctrl+Enter` or `Shift+Enter`). When prompted for a Python kernel, select
+```
+Python 3.10.13 ~/python/current/bin/python3
+```
+
+Alternatively, you can connect to the codespace environment using VS Code.  From VS Code, select the
+command palette (Ctrl+Shift+P), and search for "Codespaces: Create New Codespace".
+
+In either case, when the Codespace starts it will be running an HSDS instance and your environment will be automatically setup to connect to it.
+
+
+It's also possible to run the examples locally on your desktop or EC2 instance.  In this case you'll need to setup an HSDS instance and configure your environment to connect to it.  See: https://github.com/HDFGroup/hsds/blob/master/README.md for instructions. 
+
+The Python examples use the h5pyd package which provides a h5py-api compatible interface to the HSDS
+REST API.  There are also examples, the explore using the REST API directly.
  
-### Get the samples (this repository)
-
-Clone this repository:
-
-    $ git clone https://github.com/HDFGroup/hsds_examples
-
-If you don't have git installed, you can get it here: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-
-### Install Python if you don't have it already
-
-Python version 2.7 to 3.6 is fine. Check your version using:
-
-    $ python --version
-
-If you don't have Python installed, go to: https://www.python.org/downloads/.
-
-### Install Pip if you don't have it already
-
-Run:
-
-    $ pip --version
-
-If you don't have pip, get the installer srcript:
-
-    $ wget https://bootstrap.pypa.io/get-pip.py
-
-Then run the script:
-
-    $ python get-pip.py 
-
-If you run into problems, see: https://pip.pypa.io/en/stable/installing/.
-
-### Install the necessary packages
-
-Run:
-
-    $ pip install h5pyd
-    $ pip install h5py
-    $ pip install jason
-    $ pip install jupyter
-
-Or if you are using Anaconda:
-
-    $ conda create -n hsds python=3.6 h5py json jupyter
-    $ source activate hsds
-    $ pip install h5pyd
-
-### Configure h5pyd
  
-User credentials are stored in a .hscfg file in your home directory.
-Contact The HDF Group to get your credentials (username and password).
-
-Then run:
-
-    $ hsconfigure
-
-As prompted, enter the service endpoint, username, and password.
-
-Verify that you can connect to the service:
-
-    $ hsinfo
-
-A folder in the path: "/home/<username>" should be setup with permissions for 
-your account to create sub-folders and files within the folder.  
-
-You can verify this with:
-
-    $ hsls /home/<username>/  # list your home folder
-    $ hstouch /home/<username>/empty.h5  # create a HDF5 domain (file)
-
 ## Using the HSDS CLI (Command Line Interface) Tools
 
 Once the above setup is complete, you can use the CLI tools to interact with the service.  To get help on a particular tool, run with the --help option.
@@ -87,12 +38,14 @@ The following tools are provided:
 
 * hsconfigure -- setup credentials file
 * hsinfo -- display status of HSDS service
-* hsls -- list files in folders or contents of an HDF5 file
-* hstouch -- create new folders or files
+* hsls -- list files in folders or contents of an HSDS domain
+* hstouch -- create new folders or domains
 * hsload -- upload a HDF5 file on your system to the server
 * hsget -- download a file from the server to your computer
-* hsdel -- delete a file or folder
-* hsacl -- display or modify Access Control Lists (ACLs) for a file or folder
+* hsdiff -- compare a HSDS domain with and HDF5 file
+* hsstat -- get detailed information about a HSDS domain
+* hsrm -- delete a domain or folder
+* hsacl -- display or modify Access Control Lists (ACLs) for a domain or folder
 
 ## Using the Python SDK (h5pyd)
 
@@ -101,29 +54,25 @@ high-level API of the popular h5py package for regular HDF5 files.  See http://d
 
 Notable differences:
 
-* Since there's no concept of a current working directory, always provide an absolute path when opening a file
+* Since there's no concept of a current working directory, always provide an absolute path when opening a domain
 * There is no explicit support for Parallel HDF5 or SWMR
 * Some types are not yet supported: Object and Region references, Opaque
-* Dimension Scales or not yet supported
 * h5pyd extends the Dataset class with a query method - see the ghcn_query example for usage
+
+Many of the example programs can be run with either h5py or h5pyd.
 
 ## Running the notebook examples
 
-Samples that have a notebook sub-directory contain one or more Jupyter notebooks.
-To run, cd to that directory and type:
-
-    $ jupyter notebook
-
-This will open a browser window that will let you step through the notebook.
+To execute the notebook examples (extension .ipynb), click on a cell and press the arrow (or ctrl-enter)
 
 ## Additional Information
 
 ### Websites
 
 * Main website: http://www.hdfgroup.org
-* h5pyd Source code: https://github.com/HDFGroup/h5pyd
+* h5pyd: https://github.com/HDFGroup/h5pyd
+* HSDS: https://github.com/HDFGroup/hsds
 * Mailing list: hdf-forum@lists.hdfgroup.org <hdf-forum@lists.hdfgroup.org>
-* Documentation: http://h5serv.readthedocs.org  (For REST API)
 
 ### Other useful resources
 
@@ -140,8 +89,6 @@ For problems with samples in this repository, create a new issue here: https://g
 For h5pyd-related problems, create new issues at http://github.com/HDFGroup/h5pyd/issues. 
 
 For problems with the service itself, or general questions/feedback, please use the hdf list (hdf-forum@lists.hdfgroup.org) or contact the HDF help desk: help@hdfgroup.org
-
-There is a Slack-based discussion forum for HSDS at hdfobjectstore.slack.com.  Contact the help desk for an invite.
 
 
 
