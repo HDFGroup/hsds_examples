@@ -88,7 +88,7 @@ def generate_perlin_noise(width, height, scale):
     return noise
 
 
-def sensor_update(sensor, scale_factor, frequency, update_interval):
+def sensor_update(sensor, scale_factor, frequency, update_interval, minval=-1.0, maxval=1.0, quiet=False):
     """ generate fake sensor signlas and update the hdf5 dataset based
     on the frequency and update_interval parameters."""
 
@@ -99,6 +99,8 @@ def sensor_update(sensor, scale_factor, frequency, update_interval):
     count = elements_per_packet * 1000  # pre-compute some packet data
     noise = generate_perlin_noise(count, 1, scale_factor)
     noise = noise[0,:]  # convert to a 1D array
+    noise = noise * (maxval - minval) # scale to [0.0, max-min]
+    noise = noise + minval  # scale to [min, max]
     start_time = sensor.attrs["start_time"]
 
     while True:
@@ -106,19 +108,23 @@ def sensor_update(sensor, scale_factor, frequency, update_interval):
         next_update = start_time + (packet_count + 1) * update_interval
         sleep_time = next_update - time.time()
         if sleep_time > 0:
-            print(f"sleeping for {sleep_time:.2f} seconds")
+            if not quiet:
+                print(f"sleeping for {sleep_time:.2f} seconds")
             time.sleep(sleep_time)
         else:
-            print("no sleep needed")
+            if not quiet:
+                print("no sleep needed")
         num_elements = (packet_count + 1) * elements_per_packet
         if num_elements > sensor.shape[0]:
-            print("extending dataset for next packet")
+            if not quiet:
+                print("extending dataset for next packet")
             # extend the dataset to stop_index
             sensor.resize((num_elements,))
         # write the data packet
         start_index = elements_per_packet * packet_count
         stop_index = elements_per_packet * (packet_count + 1)
-        print(f"sensor {sensor.name} writing packet {packet_count}")
+        if not quiet:
+            print(f"sensor {sensor.name} writing packet {packet_count}")
         sensor[start_index:stop_index] = noise[(start_index%count):(stop_index%count)]
         packet_count += 1
 
@@ -126,14 +132,29 @@ def sensor_update(sensor, scale_factor, frequency, update_interval):
 # main program
 #
 
-filepath = "hdf5://home/john/streamtest.h5"
-sensor_name = "sensor1"
-scale_factor = 500
-frequency = 0.1
-update_interval = 1.0 # seconds
+filepath = "hdf5://home/test_user1/test/streamtest.h5"  # path to store sensor data
+sensor_name = "sensor1"  # name of the sensor  
+scale_factor = 500  # how smooth the signal is
+frequency = 100  # how many samples per second
+update_interval = 1 # how often to update the dataset (seconds)
+minval = -1.0  # minvalue of generted signal
+maxval = 1.0   # maxvalue of generated signal
+units = "m"    # units of the generated signal
+quiet = False  # quiet mode
 
 if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
-    print("Usage: python siggen.py [--filepath filepath] [--name name] [--scale n] [--freq n] [--update m]")
+    usage ="Usage: sggen.py "
+    usage += f"[--filepath {filepath}] "
+    usage += f"[--name {sensor_name}] "   
+    usage += f"[--scale {scale_factor}] "
+    usage += f"[--freq {frequency}] "
+    usage += f"[--update {update_interval}] "
+    usage += f"[--units {units}] "
+    usage += f"[--minval {minval}] "
+    usage += f"[--maxval {maxval}] "
+    usage += "[--quiet y/n]"
+
+    print(usage)
     sys.exit(0)
 
 argname = None
@@ -149,36 +170,53 @@ for arg in sys.argv[1:]:
             frequency = int(arg)
         elif argname == "--update":
             update_interval = int(arg)
+        elif argname == "--units":
+            units = arg
+        elif argname == "--minval":
+            minval = float(arg)
+        elif argname == "--maxval":
+            maxval = float(arg)
+        elif argname == "--quiet":
+            quiet = arg.lower() in ("y", "yes", "true", "1")
         argname = None
     elif arg.startswith("--"):
         argname = arg
 
-print("filepath:", filepath)
-print("sensor name:", sensor_name)
-print("scale factor:", scale_factor)
-print("frequency:", frequency)
-print("update_interval:", update_interval)
+if not quiet:
+    print("filepath:", filepath)
+    print("sensor name:", sensor_name)
+    print("scale factor:", scale_factor)
+    print("units:", units)
+    print("minval:", minval)
+    print("maxval:", maxval)
+    print("frequency:", frequency)
+    print("update_interval:", update_interval)
 
 signal.signal(signal.SIGINT, signal_handler)  # catch ctrl-c
 
 with h5py.File(filepath, "a") as f:
     if "sensors" not in f:
-        f.create_group("sensors")
+        try:
+            f.create_group("sensors")
+        except ValueError:
+            pass
     sensors_group = f["sensors"]
     if sensor_name in sensors_group:
-        print(f"deleting previous run of sensor: {sensor_name}") 
+        if not quiet:
+            print(f"deleting previous run of sensor: {sensor_name}") 
         del sensors_group[sensor_name]
 
-    print(f"creating sensor dataset /sensors/{sensor_name}")
+    if not quiet:
+        print(f"creating sensor dataset /sensors/{sensor_name}")
     sensor = sensors_group.create_dataset(sensor_name, (0,), maxshape=(None,), dtype='f')
     sensor.attrs["description"] = f"sensor data for sensor {sensor_name}"
     sensor.attrs["frequency"] = frequency
     sensor.attrs["scale_factor"] = scale_factor
     sensor.attrs["update_interval"] = update_interval
     sensor.attrs["start_time"] = time.time()
-    sensor.attrs["min_value"] = -1.0
-    sensor.attrs["max_value"] = 1.0
+    sensor.attrs["min_value"] = minval
+    sensor.attrs["max_value"] = maxval
     sensor.attrs["units"] = "amps"
 
-    sensor_update(sensor, scale_factor, frequency, update_interval)
+    sensor_update(sensor, scale_factor, frequency, update_interval, minval=minval, maxval=maxval, quiet=quiet)
 

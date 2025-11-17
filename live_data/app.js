@@ -1,6 +1,6 @@
 // Configuration
 const HSDS_ENDPOINT = 'http://localhost:5101';
-const HDF_DOMAIN = '/home/john/streamtest.h5'; // Update this to your HDF5 domain path
+const HDF_DOMAIN = '/home/test_user1/test/streamtest.h5'; // Update this to your HDF5 domain path
 const DEFAULT_POLL_INTERVAL = 1000; // milliseconds
 
 // Application state
@@ -14,7 +14,8 @@ const state = {
     canvas: null,
     ctx: null,
     chartArea: { x: 80, y: 20, width: 0, height: 0 },
-    authHeader: null // HTTP Basic Auth header
+    authHeader: null, // HTTP Basic Auth header
+    historyWindow: 60 // History window in seconds (0 = show all)
 };
 
 // Generate distinct colors for sensors
@@ -391,26 +392,50 @@ function renderChart() {
     let minValue = Infinity;
     let maxValue = -Infinity;
 
-    // Get earliest start time from all sensors
-    state.sensors.forEach(sensor => {
-        if (sensor.start_time && sensor.start_time < minTime) {
-            minTime = sensor.start_time;
+    // First pass: find the maximum time across all enabled sensors
+    enabledSensorsWithData.forEach(name => {
+        const data = state.sensorData.get(name);
+        if (data.times.length > 0) {
+            const dataMaxTime = Math.max(...data.times);
+            if (dataMaxTime > maxTime) maxTime = dataMaxTime;
         }
     });
 
+    // Calculate time cutoff based on history window
+    const timeCutoff = state.historyWindow > 0 ? maxTime - state.historyWindow : -Infinity;
+
+    // Second pass: calculate time range for data within the history window
     enabledSensorsWithData.forEach(name => {
         const data = state.sensorData.get(name);
 
         if (data.times.length > 0) {
-            const dataMaxTime = Math.max(...data.times);
-            if (dataMaxTime > maxTime) maxTime = dataMaxTime;
-
-            const dataMinValue = Math.min(...data.values);
-            const dataMaxValue = Math.max(...data.values);
-            if (dataMinValue < minValue) minValue = dataMinValue;
-            if (dataMaxValue > maxValue) maxValue = dataMaxValue;
+            // Filter data within the history window to find min time
+            for (let i = 0; i < data.times.length; i++) {
+                const time = data.times[i];
+                if (time >= timeCutoff) {
+                    if (time < minTime) minTime = time;
+                }
+            }
         }
     });
+
+    // Calculate vertical scale from sensor attributes (min_value and max_value)
+    if (enabledSensorsWithData.length > 0) {
+        enabledSensorsWithData.forEach(name => {
+            const sensor = state.sensors.get(name);
+            if (sensor) {
+                const sensorMinValue = sensor.min_value !== undefined ? sensor.min_value : 0;
+                const sensorMaxValue = sensor.max_value !== undefined ? sensor.max_value : (sensor.scale_factor || 1);
+
+                if (sensorMinValue < minValue) minValue = sensorMinValue;
+                if (sensorMaxValue > maxValue) maxValue = sensorMaxValue;
+            }
+        });
+    } else {
+        // No enabled sensors, use default range
+        minValue = -1;
+        maxValue = 1;
+    }
 
     // Add padding to value range
     const valueRange = maxValue - minValue;
@@ -483,6 +508,9 @@ function renderChart() {
         for (let i = 0; i < data.times.length; i++) {
             const time = data.times[i];
             const value = data.values[i];
+
+            // Skip data points outside the history window
+            if (time < timeCutoff) continue;
 
             const x = chartArea.x + ((time - minTime) / (maxTime - minTime)) * chartArea.width;
             const y = chartArea.y + chartArea.height - ((value - minValue) / (maxValue - minValue)) * chartArea.height;
@@ -631,6 +659,12 @@ async function init() {
         } else {
             startPolling();
         }
+    });
+
+    const historyWindowInput = document.getElementById('historyWindow');
+    historyWindowInput.addEventListener('change', (e) => {
+        state.historyWindow = parseInt(e.target.value) || 0;
+        renderChart();
     });
 
     // Initial load
