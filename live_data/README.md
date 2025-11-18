@@ -11,6 +11,7 @@ A web application that displays live streaming data from an HDF5 REST API (HSDS)
 - **Responsive Design**: Adapts to different screen sizes
 - **Configurable Polling**: Adjust how frequently the app checks for new data
 - **Incremental Data Loading**: Only fetches new data points, not the entire dataset
+- **Simulated Data Generation**: The Python script: siggen.py can be used to simulate a live data source
 
 ## Application Structure
 
@@ -65,15 +66,20 @@ Returns data values in the specified range.
 
 ## Setup and Usage
 
-1. **Update Configuration**: Edit `app.js` lines 2-3 and change the configuration constants:
+1. **HSDS Setup**: Setup an HSDS instance with your desired storage (POSIX directory, S3 Bucket, etc.).  See https://github.com/HDFGroup/hsds/README.md for setup instructions.
+
+2. **Create simulated data**: Run `python siggen.py` (requires h5pyd package) to generate a data signal.  The --help option will list available options to use.  Script will run until it is stopped via a Ctrl-C signal, generating a continuous stream of data.  The scripts in the scripts folder show some various options for siggen.py.
+Multiple instances of siggen.py can be run to simulate multiple sensor sources.
+
+3. **Update Configuration**: Edit `app.js` lines 2-3 and change the configuration constants:
    ```javascript
    const HSDS_ENDPOINT = 'http://localhost:5101';
-   const HDF_DOMAIN = '/home/john/streamtest.h5';
+   const HDF_DOMAIN = '/home/test_user1/test/streamtest.h5';
    ```
 
-2. **Open in Browser**: Simply open `index.html` in a web browser. No build process required!
+4. **Open in Browser**: Simply open `index.html` in a web browser. No build process required!
 
-3. **Configure Polling**: Use the "Poll Interval" input to adjust how often the app checks for new data (in milliseconds).
+5. **Configure Polling**: Use the "Poll Interval" input to adjust how often the app checks for new data (in milliseconds).
 
 ## How It Works
 
