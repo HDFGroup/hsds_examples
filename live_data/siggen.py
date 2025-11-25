@@ -134,7 +134,7 @@ def sensor_update(sensor, scale_factor, frequency, update_interval, minval=-1.0,
 
 filepath = "hdf5://home/test_user1/test/streamtest.h5"  # path to store sensor data
 sensor_name = "sensor1"  # name of the sensor  
-scale_factor = 500  # how smooth the signal is
+scale_factor = 100  # how smooth the signal is - higher is smoother
 frequency = 100  # how many samples per second
 update_interval = 1 # how often to update the dataset (seconds)
 minval = -1.0  # minvalue of generted signal
@@ -143,7 +143,7 @@ units = "m"    # units of the generated signal
 quiet = False  # quiet mode
 
 if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
-    usage ="Usage: sggen.py "
+    usage ="Usage: siggen.py "
     usage += f"[--filepath {filepath}] "
     usage += f"[--name {sensor_name}] "   
     usage += f"[--scale {scale_factor}] "

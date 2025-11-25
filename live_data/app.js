@@ -15,7 +15,7 @@ const state = {
     ctx: null,
     chartArea: { x: 80, y: 20, width: 0, height: 0 },
     authHeader: null, // HTTP Basic Auth header
-    historyWindow: 60 // History window in seconds (0 = show all)
+    historyWindow: 10 // History window in seconds (0 = show all)
 };
 
 // Generate distinct colors for sensors
