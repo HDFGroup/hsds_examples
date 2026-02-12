@@ -1,7 +1,6 @@
-
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/hdfgroup/hsds_examples) 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/hdfgroup/hsds_examples)
-
-
+ [![Open in Codeanywhere](https://codeanywhere.com/img/open-in-codeanywhere-btn.svg)](https://app.codeanywhere.com/#https://github.com/hdfgroup/hsds_examples)
 
 # HSDS (Highly Scalable Data Service) Example Programs
 
